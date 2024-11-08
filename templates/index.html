@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Data Visualizer</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Stock Data Visualizer</h1>
+        <form method="POST">
+            <div class="form-group">
+                <label for="symbol">Stock Symbol:</label>
+                <select class="form-control" id="symbol" name="symbol" required>
+                    {% for symbol in stock_symbols %}
+                        <option value="{{ symbol }}">{{ symbol }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="chart_type">Chart Type:</label>
+                <select class="form-control" id="chart_type" name="chart_type" required>
+                    <option value="line">Line Chart</option>
+                    <option value="bar">Bar Chart</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="start_date">Start Date:</label>
+                <input type="date" class="form-control" id="start_date" name="start_date" required>
+            </div>
+
+            <div class="form-group">
+                <label for="end_date">End Date:</label>
+                <input type="date" class="form-control" id="end_date" name="end_date" required>
+            </div>
+
+            <div class="form-group">
+                <label for="time_series_function">Time Series Function:</label>
+                <select class="form-control" id="time_series_function" name="time_series_function" required>
+                    <option value="TIME_SERIES_INTRADAY">Intraday</option>
+                    <option value="TIME_SERIES_DAILY">Daily</option>
+                    <option value="TIME_SERIES_WEEKLY">Weekly</option>
+                    <option value="TIME_SERIES_MONTHLY">Monthly</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Generate Chart</button>
+        </form>
+
+        {% if chart_url %}
+            <h3>Chart for {{ chart_symbol }} from {{ chart_start_date }} to {{ chart_end_date }}</h3>
+            <img src="{{ chart_url }}" alt="Stock Chart" class="img-fluid mt-4">
+        {% endif %}
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
